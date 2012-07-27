@@ -15,6 +15,8 @@ module MetriksServerReporter
 
       @client_id = options[:client_id] || "#{Socket.gethostname}:#{$$}"
 
+      @extras = options[:extras] || {}
+
       @max_packet_size = options[:max_packet_size] || 1000
 
       @registry     = options[:registry] || Metriks::Registry.default
@@ -140,12 +142,12 @@ module MetriksServerReporter
     end
 
     def write_metric(name, type, metric, keys, snapshot_keys = [])
-      message = {
+      message = @extras.merge(
         :client_id => @client_id,
         :time => Time.now.to_i,
         :name => name,
         :type => type
-      }
+      )
 
       message.merge!(extract_from_metric(metric, keys))
 
