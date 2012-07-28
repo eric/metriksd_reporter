@@ -117,7 +117,7 @@ module MetriksServerReporter
     end
 
     def flush_packet_if_full
-      if @packet && @packet.length > 0 && @packet.length > @max_packet_size
+      if @packet && @packet.length > 0 && @packet.length > max_packet_size_with_compression_ratio
         flush_packet
         sleep_for_up_to(0.1)
       end
@@ -125,8 +125,22 @@ module MetriksServerReporter
 
     def flush_packet
       if @packet && @packet.length > 0
-        @socket.send(Snappy.deflate(@packet), 0, @host, @port)
+        compressed = Snappy.deflate(@packet)
+
+        # Calculate the compression ratio
+        @compression_ratio = @packet.length / compressed.length
+
+        # Send the packet
+        @socket.send(compressed, 0, @host, @port)
         @packet = ''
+      end
+    end
+
+    def max_packet_size_with_compression_ratio
+      if @compression_ratio
+        @max_packet_size * @compression_ratio * 0.8
+      else
+        @max_packet_size
       end
     end
 
