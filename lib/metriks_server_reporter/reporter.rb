@@ -12,15 +12,16 @@ module MetriksServerReporter
       @port = options[:port]
       @host = options[:host]
 
-      @client_id = options[:client_id] || "#{Socket.gethostname}:#{$$}"
-
-      @extras = options[:extras] || {}
+      @client_id       = options[:client_id] || "#{Socket.gethostname}:#{$$}"
+      @extras          = options[:extras] || {}
+      @registry        = options[:registry] || Metriks::Registry.default
 
       @max_packet_size = options[:max_packet_size] || 1000
+      @interval        = options[:interval] || 60
+      @interval_window = options[:interval_window] || 3
+      @flush_delay     = options[:flush_delay] || 0.6
 
-      @registry = options[:registry] || Metriks::Registry.default
-      @interval = options[:interval] || 60
-      @on_error = options[:on_error] || proc { |ex| }
+      @on_error        = options[:on_error] || proc { |ex| }
     end
 
     def start
@@ -176,7 +177,7 @@ module MetriksServerReporter
     def sleep_until_deadline
       now          = Time.now.to_f
       rounded      = now - (now % @interval)
-      next_rounded = rounded + @interval - (rand * 2.0)
+      next_rounded = rounded + @interval - (rand * @interval_window)
       sleep_time   = next_rounded - Time.now.to_f
 
       if sleep_time > 0
