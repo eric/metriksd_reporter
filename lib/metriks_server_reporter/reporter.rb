@@ -176,7 +176,7 @@ module MetriksServerReporter
     def sleep_until_deadline
       now          = Time.now.to_f
       rounded      = now - (now % @interval)
-      next_rounded = rounded + @interval - rand
+      next_rounded = rounded + @interval - (rand * 2.0)
       sleep_time   = next_rounded - Time.now.to_f
 
       if sleep_time > 0
