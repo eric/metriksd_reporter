@@ -119,7 +119,7 @@ module MetriksServerReporter
     def flush_packet_if_full
       if @packet && @packet.length > 0 && @packet.length > max_packet_size_with_compression_ratio
         flush_packet
-        sleep_for_up_to(0.1)
+        sleep_for_up_to(0.2)
       end
     end
 
