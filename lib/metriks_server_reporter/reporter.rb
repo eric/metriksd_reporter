@@ -117,8 +117,9 @@ module MetriksServerReporter
     end
 
     def flush_packet_if_full
-      if @packet && @packet.length > @max_packet_size
+      if @packet && @packet.length > 0 && @packet.length > @max_packet_size
         flush_packet
+        sleep_for_up_to(0.1)
       end
     end
 
@@ -166,6 +167,13 @@ module MetriksServerReporter
 
       if sleep_time > 0
         sleep(sleep_time)
+      end
+    end
+
+    def sleep_for_up_to(duration)
+      duration *= rand
+      if duration > 0
+        sleep(duration)
       end
     end
   end
