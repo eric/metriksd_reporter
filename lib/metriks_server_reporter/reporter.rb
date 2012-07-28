@@ -1,4 +1,3 @@
-require 'metriks/time_tracker'
 require 'snappy'
 require 'msgpack'
 
@@ -19,9 +18,9 @@ module MetriksServerReporter
 
       @max_packet_size = options[:max_packet_size] || 1000
 
-      @registry     = options[:registry] || Metriks::Registry.default
-      @time_tracker = Metriks::TimeTracker.new(options[:interval] || 60)
-      @on_error     = options[:on_error] || proc { |ex| }
+      @registry = options[:registry] || Metriks::Registry.default
+      @interval = options[:interval] || 60
+      @on_error = options[:on_error] || proc { |ex| }
     end
 
     def start
@@ -29,7 +28,7 @@ module MetriksServerReporter
 
       @thread ||= Thread.new do
         loop do
-          @time_tracker.sleep
+          sleep_until_deadline
 
           begin
             write
@@ -157,6 +156,17 @@ module MetriksServerReporter
       end
 
       append_to_packet(message)
+    end
+
+    def sleep_until_deadline
+      now          = Time.now.to_f
+      rounded      = now - (now % @interval)
+      next_rounded = rounded + @interval - rand
+      sleep_time   = next_rounded - Time.now.to_f
+
+      if sleep_time > 0
+        sleep(sleep_time)
+      end
     end
   end
 end
