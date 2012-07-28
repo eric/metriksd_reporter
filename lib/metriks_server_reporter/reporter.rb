@@ -18,7 +18,7 @@ module MetriksServerReporter
 
       @max_packet_size = options[:max_packet_size] || 1000
       @interval        = options[:interval] || 60
-      @interval_window = options[:interval_window] || 3
+      @interval_offset = options[:interval_offset] || 0
       @flush_delay     = options[:flush_delay] || 0.6
 
       @on_error        = options[:on_error] || proc { |ex| }
@@ -177,7 +177,7 @@ module MetriksServerReporter
     def sleep_until_deadline
       now          = Time.now.to_f
       rounded      = now - (now % @interval)
-      next_rounded = rounded + @interval - (rand * @interval_window)
+      next_rounded = rounded + @interval - @interval_offset
       sleep_time   = next_rounded - Time.now.to_f
 
       if sleep_time > 0
