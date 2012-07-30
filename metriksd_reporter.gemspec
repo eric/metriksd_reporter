@@ -63,10 +63,10 @@ Gem::Specification.new do |s|
     LICENSE
     README.md
     Rakefile
-    lib/metriks_server_reporter.rb
-    lib/metriks_server_reporter/reporter.rb
-    metriks_server_reporter.gemspec
-    test/metriks_server_reporter_test.rb
+    lib/metriksd_reporter.rb
+    lib/metriksd_reporter/reporter.rb
+    metriksd_reporter.gemspec
+    test/metriksd_reporter_test.rb
     test/test_helper.rb
   ]
   # = MANIFEST =
