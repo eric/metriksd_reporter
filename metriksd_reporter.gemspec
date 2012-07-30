@@ -12,9 +12,9 @@ Gem::Specification.new do |s|
   ## Leave these as is they will be modified for you by the rake gemspec task.
   ## If your rubyforge_project name is different, then edit it and comment out
   ## the sub! line in the Rakefile
-  s.name              = 'metriks_server_reporter'
+  s.name              = 'metriksd_reporter'
   s.version           = '0.5.0'
-  s.date              = '2012-07-26'
+  s.date              = '2012-07-29'
 
   ## Make sure your summary is short. The description may be as long
   ## as you like.
@@ -59,7 +59,15 @@ Gem::Specification.new do |s|
   ## THE MANIFEST COMMENTS, they are used as delimiters by the task.
   # = MANIFEST =
   s.files = %w[
-
+    Gemfile
+    LICENSE
+    README.md
+    Rakefile
+    lib/metriks_server_reporter.rb
+    lib/metriks_server_reporter/reporter.rb
+    metriks_server_reporter.gemspec
+    test/metriks_server_reporter_test.rb
+    test/test_helper.rb
   ]
   # = MANIFEST =
 

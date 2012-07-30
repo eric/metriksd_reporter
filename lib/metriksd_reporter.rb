@@ -1,4 +1,4 @@
-module MetriksServerReporter
+module MetriksdReporter
   VERSION = '0.5.0'
 
   def self.new(*args)
@@ -6,4 +6,4 @@ module MetriksServerReporter
   end
 end
 
-require 'metriks_server_reporter/reporter'
+require 'metriksd_reporter/reporter'

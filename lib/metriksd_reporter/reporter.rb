@@ -1,7 +1,7 @@
 require 'snappy'
 require 'msgpack'
 
-module MetriksServerReporter
+module MetriksdReporter
   class Reporter
     def initialize(options = {})
       missing_keys = %w(port host) - options.keys.map(&:to_s)

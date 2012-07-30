@@ -1,6 +1,6 @@
 # Metriks Server Reporter
 
-A reporter to send metrics from [metriks][] to [metriks_server][].
+A reporter to send metrics from [metriks][] to [metriksd][].
 
 
 ## Usage
@@ -8,13 +8,13 @@ A reporter to send metrics from [metriks][] to [metriks_server][].
 Add the gem to your `Gemfile`:
 
 ``` ruby
-gem 'metriks_server_reporter'
+gem 'metriksd_reporter'
 ```
 
 Use the reporter:
 
 ``` ruby
-  reporter = MetriksServerReporter.new(:host => 'metriks_server.local', :port => 3331)
+  reporter = MetriksdReporter.new(:host => 'metriksd.local', :port => 3331)
 ```
 
 
@@ -25,4 +25,4 @@ Copyright (c) 2012 Eric Lindvall
 Published under the MIT License, see LICENSE
 
 [metriks]: https://github.com/eric/metriks
-[metriks_server]: https://github.com/eric/metriks_server
+[metriksd]: https://github.com/eric/metriksd

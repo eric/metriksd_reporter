@@ -1,10 +1,10 @@
 require 'test_helper'
 require 'metriks'
 
-class MetriksServerReporterTest < Test::Unit::TestCase
+class MetriksdReporterTest < Test::Unit::TestCase
   def setup
     @registry = Metriks::Registry.new
-    @reporter = MetriksServerReporter.new(:host => '127.0.0.1', :port => 8372, :registry => @registry)
+    @reporter = MetriksdReporter.new(:host => '127.0.0.1', :port => 8372, :registry => @registry)
   end
 
   def test_basic
