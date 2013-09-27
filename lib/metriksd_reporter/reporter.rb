@@ -105,6 +105,10 @@ module MetriksdReporter
           ], [
             :median, :get_95th_percentile
           ]
+        when Metriks::Gauge
+          write_metric name, 'gauge', metric, [
+            :value
+          ]
         end
       end
 
